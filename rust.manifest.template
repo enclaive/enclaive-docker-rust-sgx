@@ -1,0 +1,47 @@
+loader.entrypoint = "file:{{ gramine.libos }}"
+libos.entrypoint = "app/hello_world"
+loader.log_level = "{{ log_level }}"
+loader.argv0_override = "/app/hello_world"
+loader.env.LD_LIBRARY_PATH = "/lib:{{ arch_libdir }}:/usr/{{ arch_libdir }}"
+
+sgx.debug = false
+sgx.nonpie_binary = true
+
+sgx.trusted_files = [
+    "file:{{ gramine.libos }}",
+    "file:{{ gramine.runtimedir() }}/",
+    "file:{{ arch_libdir }}/",
+    "file:/usr/{{ arch_libdir }}/",
+    "file:/app/hello_world",
+]
+
+[[fs.mounts]]
+type = "chroot"
+path = "/lib"
+uri  = "file:{{ gramine.runtimedir() }}"
+
+[[fs.mounts]]
+type = "chroot"
+path = "{{ arch_libdir }}"
+uri  = "file:{{ arch_libdir }}"
+
+[[fs.mounts]]
+type = "chroot"
+path = "/usr/{{ arch_libdir }}"
+uri  = "file:/usr/{{ arch_libdir }}"
+
+[[fs.mounts]]
+type = "chroot"
+path = "/usr/local/{{ arch_libdir }}"
+uri  = "file:/usr/local/{{ arch_libdir }}"
+
+[[fs.mounts]]
+type = "chroot"
+path = "/app/hello_world"
+uri = "file:/app/hello_world"
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+
+version: '2'
+
+services:
+  gramine-sdk:
+    image: flieske/gramine-rust:latest
+    container_name: "gramine-rust"
+    build: .
+    volumes:
+      - /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket
+    devices:
+      - "/dev/sgx_enclave:/dev/sgx_enclave"
+    stdin_open: true              # docker run -i
+    tty: true                     # docker run -t
