@@ -12,7 +12,7 @@ sgx.trusted_files = [
     "file:{{ gramine.runtimedir() }}/",
     "file:{{ arch_libdir }}/",
     "file:/usr/{{ arch_libdir }}/",
-    "file:/app/hello_world",
+    "file:/app/",
 ]
 
 [[fs.mounts]]
@@ -37,11 +37,5 @@ uri  = "file:/usr/local/{{ arch_libdir }}"
 
 [[fs.mounts]]
 type = "chroot"
-path = "/app/hello_world"
-uri = "file:/app/hello_world"
-
-
-
-
-
-
+path = "/app/"
+uri = "file:/app/"
