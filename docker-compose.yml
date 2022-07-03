@@ -4,7 +4,11 @@ services:
   gramine-sdk:
     image: flieske/gramine-rust:latest
     container_name: "gramine-rust"
-    build: .
+    build:
+      context: .
+      args:
+        - projectName=hello_world
+        - webFiles=webfiles
     ports:
       - "80:80"
     volumes:
