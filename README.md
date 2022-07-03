@@ -1,4 +1,5 @@
 <div align="center">
+
 # Gramine Rust Proof of Concept
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -16,21 +17,23 @@ This repository is a small demo to show, how to run a rust application inside an
 </div>
 
 
-
 ## About The Project
-
 With the increasing movement to the cloud and zero-trust infrastructure, the field of confidential computing is becoming increasingly important for developers. With Gramine, an existing code base can be migrated quickly and easily without the need for a complete re-write.
 
 This project was developed in the context of the system security lecture by [@sebastiangajek](https://github.com/sebastiangajek) at the Flensburg University of Applied Sciences.
+
 ## Getting started
 ### Pre-requirements
-The system has to support Intel SGX. Check this with
+An enclave-ready computing platform with flexible launch control. Check for Intel SGX with
 ```sh
 grep sgx /proc/cpuinfo
 ```
-or have a look at [Intel's Guide](https://www.intel.com/content/www/us/en/support/articles/000028173/processors.html) to find out.
+and look for the flags `sgx` and `sgx_lc` or have a look at [Intel's Guide](https://www.intel.com/content/www/us/en/support/articles/000028173/processors.html) to find it out.
 
-Docker and Docker Compose are also necessary for this poc, for installation consider the [Docker documentation](https://docs.docker.com/get-docker/) for your OS.
+In addition, Intel SGX drivers are necessary. They are integrated in Linux kernel version 5.11. If there is a kernel version 5.9 or higher in use, install [Intel SGX DCAP](https://github.com/intel/SGXDataCenterAttestationPrimitives).
+
+Docker and Docker Compose are also necessary for this PoC, for installation consider the [Docker documentation](https://docs.docker.com/get-docker/) for your OS.
+
 ### Running the PoC
 After fulfilling the pre-requirements, clone the repository and run the following inside the project
 ```sh
@@ -45,7 +48,10 @@ The build process of the image contains two Stage
 * Second Stage: Gathers all additional required resources, generates the manifest form [template](rust.manifest.template) and signs it 
 
 During build `ARG projectName` specifies the name of the project directory and executable. Further 
-`ARG webFiles` specifies directory for *.html, *.js, ... . These are defined in the [docker-compose.yml](docker-compose.yml)
+`ARG webFiles` specifies the directory for *.html, *.js, ... . Both are defined in the [docker-compose.yml](docker-compose.yml)
+
+If more packages are required during build or runtime they can be added to the `package.txt` or `build/package.txt`
+to install them during build.
 
 After the build finished the app environment looks this by default
 ```
@@ -60,15 +66,14 @@ The [entrypoint.sh](entrypoint.sh) is executed on container start to get the req
 
 ## Modifying the PoC to run another Rust application
 To run another Rust executable it is enough to replace the `hello_world` project with yours and change the argument `projectName` in [docker-compose.yml](docker-compose.yml) to your project name.
-Just like argument `webFiles` or if not needed, this part can be removed.
+Same applies for the argument `webFiles` or if not needed, this part can be removed.
 
-**Note:** After the images is build the `$webFiles` are located in `/app/$webFiles/`.
+**Note:** After the image is build the `$webFiles` are located in `/app/$webFiles/`.
 
 ## License
 This project is distributed under the GPLv3 License. See `LICENSE` for further information.
 
 ## Acknowledgments
-
 This project greatly celebrates all contributions from the gramine team and the amazing progress made by the [enclaive](https://github.com/enclaive) team.
 
 * [enclaive.io](https://github.com/enclaive)
