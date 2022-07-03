@@ -11,8 +11,8 @@ This repository is a small demo to show, how to run a rust application inside an
 
 [About The Project](#about-the-project) •
 [Getting started](#getting-started) •
-[Gramine Rust Image structure](#gramine-rust-image-structure) •
-[Modifying the PoC](#modifying-the-poc-to-run-an-other-rust-application)
+[Gramine Rust Image structure](#gramine-Rust-image-structure) •
+[Modifying the PoC](#modifying-the-poc-to-run-another-Rust-application)
 </div>
 
 
@@ -21,7 +21,7 @@ This repository is a small demo to show, how to run a rust application inside an
 
 With the increasing movement to the cloud and zero-trust infrastructure, the field of confidential computing is becoming increasingly important for developers. With Gramine, an existing code base can be migrated quickly and easily without the need for a complete re-write.
 
-The project was developed in the context of the system security lecture by [@sebastiangajek](https://github.com/sebastiangajek) at the Flensburg University of Applied Sciences.
+This project was developed in the context of the system security lecture by [@sebastiangajek](https://github.com/sebastiangajek) at the Flensburg University of Applied Sciences.
 ## Getting started
 ### Pre-requirements
 The system has to support Intel SGX. Check this with
@@ -30,23 +30,39 @@ grep sgx /proc/cpuinfo
 ```
 or have a look at [Intel's Guide](https://www.intel.com/content/www/us/en/support/articles/000028173/processors.html) to find out.
 
-Please consider Intels [linux SGX driver](https://github.com/intel/linux-sgx-driver) for install instructions, if needed.
-
 Docker and Docker Compose are also necessary for this poc, for installation consider the [Docker documentation](https://docs.docker.com/get-docker/) for your OS.
 ### Running the PoC
 After fulfilling the pre-requirements, clone the repository and run the following inside the project
 ```sh
 docker-compose up
 ```
-Under `http://{your_ip_address}` you should be greeted by your enclave.
+Under `http://{your_host_ip}` you should be greeted by your enclave, after the console prints `Server is running`.
 
 ## Gramine Rust Image structure
 ### Build 
+The build process of the image contains two Stage
+* First Stage ("builder"): Uses the official Rust docker image to compile the [project](hello_world) to an executable using cargo
+* Second Stage: Gathers all additional required resources, generates the manifest form [template](rust.manifest.template) and signs it 
+
+During build `ARG projectName` specifies the name of the project directory and executable. Further 
+`ARG webFiles` specifies directory for *.html, *.js, ... . These are defined in the [docker-compose.yml](docker-compose.yml)
+
+After the build finished the app environment looks this by default
+```
+/app/
+ + $projeckName #executable
+ + $webFiles/
+    + *.html
+```
 
 ### Run
-[entrypoint script](entrypoint.sh) is exectuted on container start to get the required token and launches the application
+The [entrypoint.sh](entrypoint.sh) is executed on container start to get the required token and launches the application
 
-## Modifying the PoC to run an other rust application
+## Modifying the PoC to run another Rust application
+To run another Rust executable it is enough to replace the `hello_world` project with yours and change the argument `projectName` in [docker-compose.yml](docker-compose.yml) to your project name.
+Just like argument `webFiles` or if not needed, this part can be removed.
+
+**Note:** After the images is build the `$webFiles` are located in `/app/$webFiles/`.
 
 ## License
 This project is distributed under the GPLv3 License. See `LICENSE` for further information.
