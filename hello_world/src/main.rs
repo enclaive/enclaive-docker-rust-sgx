@@ -23,7 +23,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.read(&mut buffer).unwrap();
 
     let status_line = "HTTP/1.1 200 OK";
-    let contents = fs::read_to_string("/app/web_files/hello_world.html").unwrap();
+    let contents = fs::read_to_string("/entrypoint/web_files/hello_world.html").unwrap();
 
     let response = format!(
         "{}\r\nContent-Length: {}\r\n\r\n{}",

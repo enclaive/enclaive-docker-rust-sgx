@@ -3,7 +3,7 @@ version: '2'
 services:
   rust-sgx:
     image: flieske/gramine-rust:latest
-    container_name: "gramine-sgx"
+    container_name: "rust-sgx"
     build:
       context: .
       args:

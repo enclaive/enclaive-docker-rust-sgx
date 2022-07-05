@@ -55,8 +55,8 @@ to install them during the build.
 
 After the build is finished, the app environment looks like this by default
 ```
-/app/
- + $projeckName #executable
+/entrypoint/
+ + app #executable
  + $webFiles/
     + *.html
 ```
@@ -68,7 +68,7 @@ The [entrypoint.sh](entrypoint.sh) is executed on container-start to get the req
 To run another Rust executable, it is enough to replace the `hello_world` project with yours and change the argument `projectName` in [docker-compose.yml](docker-compose.yml) to your project name.
 The same applies to the argument `webFiles`; if not needed, this part can be removed.
 
-**Note:** After the image is built the `$webFiles` are located in `/app/$webFiles/`.
+**Note:** After the image is built the `$webFiles` are located in `/entrypoint/$webFiles/`.
 
 ## License
 This project is distributed under the GPLv3 License. See `LICENSE` for further information.
