@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-  gramine-sdk:
+  rust-sgx:
     image: flieske/gramine-rust:latest
-    container_name: "gramine-rust"
+    container_name: "gramine-sgx"
     build:
       context: .
       args:
