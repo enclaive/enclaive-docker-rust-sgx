@@ -22,6 +22,13 @@ With the increasing movement to the cloud and zero-trust infrastructure, the fie
 
 This project was developed in the context of the system security lecture by [@sebastiangajek](https://github.com/sebastiangajek) at the Flensburg University of Applied Sciences.
 
+## Why use an enclave
+An enclaved application has some great advantages
+* You don't lose the trust of an on-premise cloud in the public cloud
+* Better security against exploits for kernel-space, insider attack (malicious  or not), corrupted UEFI Firmware and other "root" attacks that use application corruption.
+* Regardless of the geolocation, the privacy export regulation are complied with
+* Through the enclave the processing data are encrypted and anonymized, so it is [GDRP](https://gdpr.eu/)/[CCPA](https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&division=3.&title=1.81.5.&part=4.&chapter=&article) complaint
+
 ## Getting started
 ### Pre-requirements
 An enclave-ready computing platform with flexible launch control. Check for Intel SGX with
