@@ -39,3 +39,8 @@ uri  = "file:/usr/local/{{ arch_libdir }}"
 type = "chroot"
 path = "/entrypoint/"
 uri = "file:/entrypoint/"
+
+[[fs.mounts]]
+type = "tmpfs"
+path = "/var/log/"
+uri = "file:/var/log/"

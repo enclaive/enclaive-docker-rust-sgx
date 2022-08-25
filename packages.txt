@@ -1,1 +1,2 @@
 libprotobuf-c1
+curl

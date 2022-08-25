@@ -19,6 +19,11 @@ fn main() {
 /// Builds a response based on an html file and send it back
 /// to the requester.
 fn handle_connection(mut stream: TcpStream) {
+
+    let mut file = std::fs::File::create("/var/log/app.log").unwrap();
+    file.write_all(format!("{}\n", stream.peer_addr().unwrap()).as_bytes());
+
+
     let mut buffer = [0; 1024];
     stream.read(&mut buffer).unwrap();
 

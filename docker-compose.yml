@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  rust-sgx:
+  rust:
     image: flieske/gramine-rust:latest
     container_name: "rust-sgx"
     build:
@@ -9,11 +9,20 @@ services:
       args:
         - projectName=hello_world
         - webFiles=web_files
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket
     devices:
       - "/dev/sgx_enclave:/dev/sgx_enclave"
     stdin_open: true              # docker run -i
     tty: true                     # docker run -t
+  rust-nosgx:
+    image: flieske/gramine-rust:latest
+    container_name: "rust-nosgx"
+    build:
+      context: .
+      args:
+        - projectName=hello_world
+        - webFiles=web_files
+    devices:
+      - "/dev/sgx_enclave:/dev/sgx_enclave"
+    stdin_open: true              # docker run -i
+    tty: true                     # docker run -t
+    entrypoint: "/entrypoint/app"
