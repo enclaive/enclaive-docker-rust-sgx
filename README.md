@@ -13,7 +13,7 @@
     </table>
 
 
-  <h2 align="center">Rust-SGX: Run any Rust application and service in a Confidenital Compute Container</h2>
+  <h2 align="center">Rust-SGX: Execute Rust applications in the safest Confidential Compute runtime</h2>
 
   <p align="center">
     <h3>packed by <a href="https://enclaive.io">enclaive</a></h3>
@@ -32,7 +32,7 @@
 <!-- INTRODCUTION -->
 ## What is Rust and SGX?
 
-> Rust is a programming language empowering everyone to build reliable and efficient software. Specifically Rust can be used to develop backend applications and API services.
+> Rust is a multi-paradigm, general-purpose programming language. Rust emphasizes performance, type safety, and concurrency. Rust enforces memory safety—that is, that all references point to valid memory—without requiring the use of a garbage collector or reference counting present in other memory-safe languages. To simultaneously enforce memory safety and prevent concurrent data races, Rust's borrow checker tracks the object lifetime and variable scope of all references in a program during compilation. Rust is popular for systems programming but also offers high-level features including functional programming constructs.
 
 [Overview of Rust](https://www.rust-lang.org/)
 
@@ -51,11 +51,12 @@ Application code executing within an Intel SGX enclave:
 ## Why use Rust-SGX (instead of "vanilla" Rust) images?
 Following benefits come for free with Rust-SGX :
 
-- "Small step for a dev, giant leap for a zero-trust infrastructure"
-- All business benefits from the migration to a (public) cloud without sacraficing on-premise infrastracture trust
-- Hardened security against kernel-space exploits, malicious and accidental privilege [insider](https://www.ibm.com/topics/insider-threats) attacks, [UEFI firmware](https://thehackernews.com/2022/02/dozens-of-security-flaws-discovered-in.html) exploits and other "root" attacks using the corruption of the application to infiltrate your network and system
-- Run on any hosting environment irrespectivably of geo-location and comply with privacy export regulation, such as [Schrem-II](https://www.europarl.europa.eu/RegData/etudes/ATAG/2020/652073/EPRS_ATA(2020)652073_EN.pdf)
-- GDPR/CCPA compliant processing ("data in use") of user data in the cloud as data is anonymized thanks to the enclave
+* Protect Rust data, applications, services, APIs, AI models against intelectual property theft/violation irrespectively where the container runs thanks to full fledge memory container encryption and integrity protection at runtime
+* Shield container application against container escalation attacks with hardened security against kernel-space exploits, malicious and accidental privilege [insider](https://www.ibm.com/topics/insider-threats) attacks, [UEFI firmware](https://thehackernews.com/2022/02/dozens-of-security-flaws-discovered-in.html) exploits and other "root" attacks using the corruption of the application to infiltrate your network and system
+* Build and deploy rust application as usual while inheriting literally for free security and privacy through containerization including
+    * strictly better TOMs (technical and organizatorial measures)
+    * privacy export regulations compliant deployment anywhere, such as [Schrems-II](https://www.europarl.europa.eu/RegData/etudes/ATAG/2020/652073/EPRS_ATA(2020)652073_EN.pdf)
+    * GDPR/CCPA compliant processing ("data in use") of user data (in the cloud) as data is anonymized thanks to the enclave
 
 <!-- TL;TD --> 
 ## TL;DR
@@ -74,6 +75,7 @@ The following cloud infrastractures are SGX-ready out of the box
 * [Microsoft Azure Confidential Cloud](https://azure.microsoft.com/en-us/solutions/confidential-compute/) 
 * [OVH Cloud](https://docs.ovh.com/ie/en/dedicated/enable-and-use-intel-sgx/)
 * [Alibaba Cloud](https://www.alibabacloud.com/blog/alibaba-cloud-released-industrys-first-trusted-and-virtualized-instance-with-support-for-sgx-2-0-and-tpm_596821) 
+* [Kraud Cloud](https://kraud.cloud/)
 
 Confidential compute is a fast growing space. Cloud providers continiously add confidential compute capabilities to their portfolio. Please [contact](#contact) us if the infrastracture provider of your preferred choice is missing.
 
