@@ -2,7 +2,7 @@ version: '2'
 
 services:
   rust-sgx:
-    image: flieske/gramine-rust:latest
+    image: enclaive/rust-sgx:latest
     container_name: "rust-sgx"
     build:
       context: .

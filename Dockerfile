@@ -13,7 +13,7 @@ RUN apt-get update && xargs -a packages.txt -r apt-get install -y && rm -rf pack
 RUN cargo install --path ./$projectName/
 
 # final stage
-FROM enclaive/gramine-os:latest
+FROM enclaive/gramine-os:jammy-7e9d6925
 ARG projectName
 # Specifes subdirectory in /entrypoint/ for web files, e.g. *.html, *.js, ...
 ARG webFiles
